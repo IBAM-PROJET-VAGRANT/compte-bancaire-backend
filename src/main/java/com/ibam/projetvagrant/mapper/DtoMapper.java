@@ -20,49 +20,51 @@ public class DtoMapper {
 
     public ClientDTO toClientDTO(Client client) {
         ClientDTO clientDTO = new ClientDTO();
-        BeanUtils.copyProperties(clientDTO, client);
+        BeanUtils.copyProperties(client, clientDTO);
         return clientDTO;
     }
 
     public Client toClient(ClientDTO clientDTO) {
         Client client = new Client();
-        BeanUtils.copyProperties(client, clientDTO);
+        BeanUtils.copyProperties(clientDTO, client);
         return client;
     }
 
     public CompteEpargneDTO toCompteEpargneDTO(CompteEpargne compteEpargne) {
         CompteEpargneDTO compteEpargneDTO = new CompteEpargneDTO();
-        BeanUtils.copyProperties(compteEpargneDTO, compteEpargne);
+        BeanUtils.copyProperties(compteEpargne, compteEpargneDTO);
         compteEpargneDTO.setClientDTO(toClientDTO(compteEpargne.getClient()));
-        compteEpargneDTO.setType(compteEpargne.getClass().getSimpleName());
+        compteEpargneDTO.setType("CompteEpargne".equals(compteEpargne.getClass().getSimpleName()) ? "CE" : null);
+        compteEpargneDTO.setStatut(compteEpargne.getStatut().getLabel());
         return compteEpargneDTO;
     }
 
     public CompteEpargne toCompteEpargne(CompteEpargneDTO compteEpargneDTO) {
         CompteEpargne compteEpargne = new CompteEpargne();
-        BeanUtils.copyProperties(compteEpargne, compteEpargneDTO);
+        BeanUtils.copyProperties(compteEpargneDTO, compteEpargne);
         compteEpargne.setClient(toClient(compteEpargneDTO.getClientDTO()));
         return compteEpargne;
     }
 
     public CompteCourantDTO toCompteCourantDTO(CompteCourant compteCourant) {
         CompteCourantDTO compteCourantDTO = new CompteCourantDTO();
-        BeanUtils.copyProperties(compteCourantDTO, compteCourant);
+        BeanUtils.copyProperties(compteCourant, compteCourantDTO);
         compteCourantDTO.setClientDTO(toClientDTO(compteCourant.getClient()));
-        compteCourantDTO.setType(compteCourant.getClass().getSimpleName());
+        compteCourantDTO.setType("CompteCourant".equals(compteCourant.getClass().getSimpleName()) ? "CC" : null);
+        compteCourantDTO.setStatut(compteCourant.getStatut().getLabel());
         return compteCourantDTO;
     }
 
     public CompteCourant toCompteCourant(CompteCourantDTO compteCourantDTO) {
         CompteCourant compteCourant = new CompteCourant();
-        BeanUtils.copyProperties(compteCourant, compteCourantDTO);
+        BeanUtils.copyProperties(compteCourantDTO, compteCourant);
         compteCourant.setClient(toClient(compteCourantDTO.getClientDTO()));
         return compteCourant;
     }
 
     public OperationCompteDTO toOperationCompteDTO(OperationCompte operationCompte) {
         OperationCompteDTO operationCompteDTO = new OperationCompteDTO();
-        BeanUtils.copyProperties(operationCompteDTO, operationCompte);
+        BeanUtils.copyProperties(operationCompte, operationCompteDTO);
         return  operationCompteDTO;
     }
 }

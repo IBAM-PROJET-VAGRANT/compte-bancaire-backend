@@ -8,7 +8,7 @@ import lombok.Data;
  */
 
 @Data
-public class DebitDTO {
+public class RetraitDTO {
     private String numeroCompte;
     private Double montant;
     private String description;

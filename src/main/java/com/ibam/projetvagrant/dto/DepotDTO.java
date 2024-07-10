@@ -7,7 +7,7 @@ import lombok.Data;
  * @date 10/07/2024
  */
 @Data
-public class CreditDTO {
+public class DepotDTO {
     private String numeroCompte;
     private Double montant;
     private String description;
