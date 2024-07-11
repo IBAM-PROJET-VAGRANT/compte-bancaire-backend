@@ -43,4 +43,9 @@ public class ClientService {
         clientRepository.deleteById(clientId);
         return "Client supprimé.";
     }
+
+    public List<ClientDTO> searchClient(String searchTerm) {
+        return clientRepository.searchClient(searchTerm).stream()
+                .map(mapper::toClientDTO).collect(Collectors.toList());
+    }
 }

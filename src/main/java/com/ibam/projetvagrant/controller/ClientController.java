@@ -43,4 +43,9 @@ public class ClientController {
     public ResponseEntity<String> deleteClient(@PathVariable("client-id") Long clientId) {
         return ResponseEntity.ok(clientService.deleteClient(clientId));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ClientDTO>> searchClient(@RequestParam(name = "term", defaultValue = "") String searchTerm) {
+        return ResponseEntity.ok(clientService.searchClient("%"+searchTerm+"%"));
+    }
 }
