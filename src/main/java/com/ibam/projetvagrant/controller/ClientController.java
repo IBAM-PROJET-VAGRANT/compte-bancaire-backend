@@ -1,8 +1,10 @@
 package com.ibam.projetvagrant.controller;
 
+import com.ibam.projetvagrant.dto.ApiResponseDTO;
 import com.ibam.projetvagrant.dto.ClientDTO;
 import com.ibam.projetvagrant.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +42,24 @@ public class ClientController {
     }
 
     @DeleteMapping("/{client-id}")
-    public ResponseEntity<String> deleteClient(@PathVariable("client-id") Long clientId) {
-        return ResponseEntity.ok(clientService.deleteClient(clientId));
+    public ResponseEntity<?> deleteClient(@PathVariable("client-id") Long clientId) {
+        try {
+            String result = clientService.deleteClient(clientId);
+            return ResponseEntity.ok(ApiResponseDTO.builder()
+                    .code(HttpStatus.ACCEPTED.toString())
+                    .msg(result)
+                    .build()
+            );
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError()
+                .body(ApiResponseDTO.builder()
+                    .code(HttpStatus.INTERNAL_SERVER_ERROR.toString())
+                    .msg(exception.getMessage())
+                    .data(exception.getCause())
+                    .build()
+                );
+        }
+
     }
 
     @GetMapping("/search")

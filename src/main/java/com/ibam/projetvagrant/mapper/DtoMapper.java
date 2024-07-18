@@ -65,6 +65,7 @@ public class DtoMapper {
     public OperationCompteDTO toOperationCompteDTO(OperationCompte operationCompte) {
         OperationCompteDTO operationCompteDTO = new OperationCompteDTO();
         BeanUtils.copyProperties(operationCompte, operationCompteDTO);
+        operationCompteDTO.setType(operationCompte.getType().toString());
         return  operationCompteDTO;
     }
 }
